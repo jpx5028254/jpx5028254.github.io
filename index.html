@@ -61,9 +61,103 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-JavaScript中的面向对象" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-模块化笔记" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/10/08/JavaScript中的面向对象/" class="article-date">
+    <a href="/2015/10/13/模块化笔记/" class="article-date">
+  <time datetime="2015-10-12T16:22:28.000Z" itemprop="datePublished">2015-10-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/学习笔记/">-学习笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/13/模块化笔记/">模块化笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h2><ol>
+<li><p>模块化是什么<br>依据不同的规则，将代码分成一个个的小模块，这种做法就是模块化！</p>
+</li>
+<li><p>为什么要做模块化</p>
+<ol>
+<li>方便代码的管理（开发与维护）</li>
+<li>方便代码的复用</li>
+</ol>
+</li>
+<li><p>怎么做模块化<br> 在前端开发当中，需要借助一些工具来实现模块化</p>
+</li>
+</ol>
+<h3 id="模块化的标准"><a href="#模块化的标准" class="headerlink" title="模块化的标准"></a>模块化的标准</h3><ol>
+<li>CommonJS 适用于后端，Nodejs中使用的就是CommonJS标准</li>
+<li>AMD：异步模块定义  代表require.js  他推崇 依赖前置</li>
+<li>CMD：通用模块定义  代表sea.js  推崇 依赖就近 依赖延迟</li>
+</ol>
+<h3 id="require-js"><a href="#require-js" class="headerlink" title="require.js"></a>require.js</h3><h4 id="定义模块"><a href="#定义模块" class="headerlink" title="定义模块"></a>定义模块</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//具名模块</span></div><div class="line">define(<span class="string">"模块名称"</span>, [<span class="string">"当前模块的依赖项路径"</span>], <span class="function"><span class="keyword">function</span>(<span class="params">接收依赖项的返回值</span>)</span>&#123;</div><div class="line"></div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">//匿名模块 </span></div><div class="line">define([<span class="string">"当前模块的依赖项路径"</span>], <span class="function"><span class="keyword">function</span>(<span class="params">接收依赖项的返回值</span>)</span>&#123;</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="引用模块"><a href="#引用模块" class="headerlink" title="引用模块"></a>引用模块</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">"模块路径（不带.js）"</span>], <span class="function"><span class="keyword">function</span>(<span class="params">接收要加载的模块的返回值</span>)</span>&#123;</div><div class="line">    <span class="comment">//当模块加载完毕之后，会执行这个函数中的代码</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="data-main"><a href="#data-main" class="headerlink" title="data-main"></a>data-main</h4><p>可以在引用requirejs的标签中，加上<code>data-mian</code>属性，属性值为一个文件的路径<br>当require.js加载完毕之后，会异步的去请求这个<code>data-main</code>属性指定的文件，执行文件中的内容</p>
+<h4 id="配置路径"><a href="#配置路径" class="headerlink" title="配置路径"></a>配置路径</h4><ol>
+<li>如果不做任何配置，那么路径会按照当前代码所在的文件作为基础查找模块,缺点是如果文件结构发生改变,修改路径比较麻烦</li>
+<li>如果使用<code>data-main</code>，那么路径会按照<code>data-main</code>所指定的文件所在目录作为基础查找模块,缺点是异步的,执行代码要写在回调里</li>
+<li>如果设置了<code>baseUrl</code>, 那么路径会按照<code>baseUrl</code>所指定的目录作为基础查找模块,目前开发中比较常用的,使用和修改起来比较方便</li>
+</ol>
+<h4 id="baseUrl配置方式"><a href="#baseUrl配置方式" class="headerlink" title="baseUrl配置方式"></a>baseUrl配置方式</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">    baseUrl: <span class="string">"设置基本路径，一般为绝对路径"</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="paths配置方式"><a href="#paths配置方式" class="headerlink" title="paths配置方式"></a>paths配置方式</h4><p>paths可以为模块的路径设置别名，以方便使用，和日后维护！<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">    baseUrl: <span class="string">"设置基本路径，一般为绝对路径"</span>,</div><div class="line">    paths: &#123;</div><div class="line">        <span class="string">"别名(ID)"</span>: <span class="string">"模块路径（以baseUrl为基础的路径）"</span>    <span class="comment">//是根据`baseUrl`为基准的相对路径</span></div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>当设置了<code>baseUrl</code>和<code>paths</code>的时候，那么模块的查找，都会依据 <code>baseUrl+paths</code>来查找,</p>
+<p>如果模块使用的路径中出现了如下内容，将不会依据 <code>baseUrl+paths</code>来查找</p>
+<ol>
+<li>以http https协议开头的路径</li>
+<li>以/开头绝对路径</li>
+<li>以.js结尾的路径</li>
+</ol>
+<h4 id="引用第三方内容"><a href="#引用第三方内容" class="headerlink" title="引用第三方内容"></a>引用第三方内容</h4><p>首要考虑的问题： 第三方内容是否支持模块化</p>
+<p>如果支持：直接使用</p>
+<p>如果不支持： 考虑第三方内容是否有依赖项以及返回值</p>
+<p>如果有依赖项：</p>
+<ol>
+<li>先配置这个第三方内容的别名</li>
+<li>配置shim选项<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">    baseUrl: <span class="string">"设置基本路径，一般为绝对路径"</span>,</div><div class="line">    paths: &#123;</div><div class="line">        <span class="string">"别名(ID)"</span>: <span class="string">"模块路径（以baseUrl为基础的路径）"</span></div><div class="line">    &#125;,</div><div class="line">    shim: &#123;</div><div class="line">        <span class="string">"别名(ID)"</span>: &#123;</div><div class="line">            deps: [<span class="string">"依赖项路径/别名"</span>]</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果有返回值：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">    baseUrl: <span class="string">"设置基本路径，一般为绝对路径"</span>,</div><div class="line">    paths: &#123;</div><div class="line">        <span class="string">"别名(ID)"</span>: <span class="string">"模块路径（以baseUrl为基础的路径）"</span></div><div class="line">    &#125;,</div><div class="line">    shim: &#123;</div><div class="line">        <span class="string">"别名(ID)"</span>: &#123;</div><div class="line">            deps: [<span class="string">"依赖项路径/别名"</span>],</div><div class="line">            exports: <span class="string">"第三方内容中的全局变量的名称"</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="登录和commonjs-模块化改造"><a href="#登录和commonjs-模块化改造" class="headerlink" title="登录和commonjs 模块化改造"></a>登录和commonjs 模块化改造</h2><ol>
+<li>下载requirejs 放到 /static/lib</li>
+<li>通过config方法设置baseUrl  /static/lib/config.js</li>
+<li>将之前写的代码通过define函数放在一个单独的模块中<br> （模块的文件路径，/static/js/功能模块/login.js）</li>
+<li>在页面中通过require函数 将模块引入</li>
+</ol>
+<p>注意： 定义模块的时候的依赖项，必须注意！！！</p>
+<h2 id="jquery-form"><a href="#jquery-form" class="headerlink" title="jquery-form"></a>jquery-form</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">"form"</span>).ajaxSubmit(&#123;</div><div class="line">    url:</div><div class="line">    type:</div><div class="line">    data:</div><div class="line">    success:</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/13/模块化笔记/" data-id="cj8oofs2e0001agqfm3wbvpxb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/require-学习/">-require -学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-分支及远程仓库的使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/08/分支及远程仓库的使用/" class="article-date">
   <time datetime="2015-10-08T15:48:48.000Z" itemprop="datePublished">2015-10-08</time>
 </a>
     
@@ -79,7 +173,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/08/JavaScript中的面向对象/">分支 远程仓储及github的使用</a>
+      <a class="article-title" href="/2015/10/08/分支及远程仓库的使用/">分支 远程仓储及github的使用</a>
     </h1>
   
 
@@ -163,7 +257,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/08/JavaScript中的面向对象/" data-id="cj8if6ru50000x8qf33tuz96y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/08/分支及远程仓库的使用/" data-id="cj8oofs1i0000agqfn8o5su5f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git-学习/">-git -学习</a></li></ul>
@@ -194,7 +288,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-学习/">-git -学习</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-学习/">-git -学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/require-学习/">-require -学习</a></li></ul>
     </div>
   </div>
 
@@ -204,7 +298,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/git-学习/" style="font-size: 10px;">-git -学习</a>
+      <a href="/tags/git-学习/" style="font-size: 10px;">-git -学习</a> <a href="/tags/require-学习/" style="font-size: 10px;">-require -学习</a>
     </div>
   </div>
 
@@ -226,7 +320,11 @@
       <ul>
         
           <li>
-            <a href="/2015/10/08/JavaScript中的面向对象/">分支 远程仓储及github的使用</a>
+            <a href="/2015/10/13/模块化笔记/">模块化笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/08/分支及远程仓库的使用/">分支 远程仓储及github的使用</a>
           </li>
         
       </ul>
